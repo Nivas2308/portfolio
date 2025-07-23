@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Task Manager</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #ffffff;
+        color: #2d2d2d;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        color: white;
+        padding: 30px 0;
+        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(45, 45, 45, 0.15);
+      }
+
+      .header h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+      }
+
+      .header p {
+        text-align: center;
+        margin-top: 10px;
+        opacity: 0.8;
+        font-size: 1.1rem;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 8px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-btn {
+        background: transparent;
+        border: none;
+        padding: 12px 24px;
+        margin: 0 4px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        color: #666;
+      }
+
+      .nav-btn.active {
+        background: #2d2d2d;
+        color: white;
+        box-shadow: 0 4px 12px rgba(45, 45, 45, 0.3);
+      }
+
+      .nav-btn:hover:not(.active) {
+        background: #e9ecef;
+        color: #2d2d2d;
+      }
+
+      .section {
+        display: none;
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .card h2 {
+        color: #2d2d2d;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2d2d2d;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: #2d2d2d;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(45, 45, 45, 0.1);
+      }
+
+      .btn {
+        background: #2d2d2d;
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        background: #1a1a1a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(45, 45, 45, 0.3);
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+      }
+
+      .btn-secondary:hover {
+        background: #545b62;
+      }
+
+      .btn-danger {
+        background: #dc3545;
+      }
+
+      .btn-danger:hover {
+        background: #c82333;
+      }
+
+      .btn-success {
+        background: #28a745;
+      }
+
+      .btn-success:hover {
+        background: #218838;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+      }
+
+      .member-card,
+      .task-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        border: 2px solid #f0f0f0;
+        transition: all 0.3s ease;
+      }
+
+      .member-card:hover,
+      .task-card:hover {
+        border-color: #2d2d2d;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .member-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2d2d2d, #6c757d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .task-status {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .status-todo {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .status-inprogress {
+        background: #cce5ff;
+        color: #0066cc;
+      }
+      .status-completed {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .time-tracker {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 15px 0;
+        border-left: 4px solid #2d2d2d;
+      }
+
+      .timer-display {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2d2d2d;
+        text-align: center;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+      }
+
+      .history-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #2d2d2d;
+      }
+
+      .history-date {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 5px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+      }
+
+      .modal-content {
+        background: white;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 16px;
+        max-width: 500px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .close {
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .close:hover {
+        color: #2d2d2d;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .nav {
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Task Manager</h1>
+        <p>Streamline Team's Workflow and Assign Task Daily.</p>
+      </div>
+
+      <div class="nav">
+        <button class="nav-btn active" onclick="showSection('dashboard')">
+          Dashboard
+        </button>
+        <button class="nav-btn" onclick="showSection('members')">
+          Team Members
+        </button>
+        <button class="nav-btn" onclick="showSection('tasks')">Tasks</button>
+        <button class="nav-btn" onclick="showSection('history')">
+          Task History
+        </button>
+      </div>
+
+      <!-- Dashboard Section -->
+      <div id="dashboard" class="section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="totalTasks">0</div>
+            <div class="stat-label">Total Tasks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="completedTasks">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="teamMembers">0</div>
+            <div class="stat-label">Team Members</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="totalHours">0</div>
+            <div class="stat-label">Hours Tracked</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Recent Activity</h2>
+          <div id="recentActivity"></div>
+        </div>
+      </div>
+
+      <!-- Members Section -->
+      <div id="members" class="section">
+        <div class="card">
+          <h2>Add New Team Member</h2>
+          <div class="form-group">
+            <label for="memberName">Full Name</label>
+            <input
+              type="text"
+              id="memberName"
+              class="form-control"
+              placeholder="Enter member name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="memberRole">Role</label>
+            <select id="memberRole" class="form-control">
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Project Manager">Project Manager</option>
+              <option value="Tech Lead">Tech Lead</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="memberEmail">Email</label>
+            <input
+              type="email"
+              id="memberEmail"
+              class="form-control"
+              placeholder="member@company.com"
+            />
+          </div>
+          <button class="btn" onclick="addMember()">Add Member</button>
+        </div>
+
+        <div class="card">
+          <h2>Team Members</h2>
+          <div class="grid" id="membersList"></div>
+        </div>
+      </div>
+
+      <!-- Tasks Section -->
+      <div id="tasks" class="section">
+        <div class="card">
+          <h2>Create New Task</h2>
+          <div class="form-group">
+            <label for="taskTitle">Task Title</label>
+            <input
+              type="text"
+              id="taskTitle"
+              class="form-control"
+              placeholder="Enter task title"
+            />
+          </div>
+          <div class="form-group">
+            <label for="taskDescription">Description</label>
+            <textarea
+              id="taskDescription"
+              class="form-control"
+              rows="3"
+              placeholder="Task description"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="taskAssignee">Assign To</label>
+            <select id="taskAssignee" class="form-control">
+              <option value="">Select team member</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority" class="form-control">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="taskDeadline">Deadline</label>
+            <input type="date" id="taskDeadline" class="form-control" />
+          </div>
+          <button class="btn" onclick="addTask()">Create Task</button>
+        </div>
+
+        <div class="card">
+          <h2>Task Management</h2>
+          <div class="grid" id="tasksList"></div>
+        </div>
+      </div>
+
+      <!-- History Section -->
+      <div id="history" class="section">
+        <div class="card">
+          <h2>Task History & Activity Log</h2>
+          <div id="historyList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Tracking Modal -->
+    <div id="timeModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeTimeModal()">&times;</span>
+        <h2>Time Tracker</h2>
+        <div class="time-tracker">
+          <div class="timer-display" id="timerDisplay">00:00:00</div>
+          <div style="text-align: center">
+            <button
+              class="btn btn-success"
+              id="startBtn"
+              onclick="startTimer()"
+            >
+              Start
+            </button>
+            <button
+              class="btn btn-secondary"
+              id="pauseBtn"
+              onclick="pauseTimer()"
+              style="display: none"
+            >
+              Pause
+            </button>
+            <button class="btn btn-danger" onclick="stopTimer()">Stop</button>
+          </div>
+          <div style="margin-top: 15px">
+            <strong>Task:</strong> <span id="trackingTaskTitle"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let members = [];
+      let tasks = [];
+      let history = [];
+      let timer = null;
+      let currentTime = 0;
+      let currentTaskId = null;
+
+      // Initialize app
+      document.addEventListener("DOMContentLoaded", function () {
+        loadData();
+        updateDashboard();
+        updateMembersList();
+        updateTasksList();
+        updateHistoryList();
+        updateTaskAssigneeOptions();
+      });
+
+      function showSection(sectionName) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-btn")
+          .forEach((b) => b.classList.remove("active"));
+
+        document.getElementById(sectionName).classList.add("active");
+        event.target.classList.add("active");
+      }
+
+      function addMember() {
+        const name = document.getElementById("memberName").value.trim();
+        const role = document.getElementById("memberRole").value;
+        const email = document.getElementById("memberEmail").value.trim();
+
+        if (!name || !email) {
+          alert("Please fill in all required fields");
+          return;
+        }
+
+        const member = {
+          id: Date.now(),
+          name,
+          role,
+          email,
+          joinDate: new Date().toLocaleDateString(),
+          tasksAssigned: 0,
+        };
+
+        members.push(member);
+        addToHistory(`Added new team member: ${name} (${role})`);
+
+        document.getElementById("memberName").value = "";
+        document.getElementById("memberEmail").value = "";
+
+        updateMembersList();
+        updateTaskAssigneeOptions();
+        updateDashboard();
+        saveData();
+      }
+
+      function removeMember(id) {
+        if (confirm("Are you sure you want to remove this member?")) {
+          const member = members.find((m) => m.id === id);
+          members = members.filter((m) => m.id !== id);
+          addToHistory(`Removed team member: ${member.name}`);
+          updateMembersList();
+          updateTaskAssigneeOptions();
+          updateDashboard();
+          saveData();
+        }
+      }
+
+      function addTask() {
+        const title = document.getElementById("taskTitle").value.trim();
+        const description = document
+          .getElementById("taskDescription")
+          .value.trim();
+        const assigneeId = document.getElementById("taskAssignee").value;
+        const priority = document.getElementById("taskPriority").value;
+        const deadline = document.getElementById("taskDeadline").value;
+
+        if (!title || !assigneeId) {
+          alert("Please fill in title and assign to a team member");
+          return;
+        }
+
+        const assignee = members.find((m) => m.id == assigneeId);
+        const task = {
+          id: Date.now(),
+          title,
+          description,
+          assigneeId: parseInt(assigneeId),
+          assigneeName: assignee.name,
+          priority,
+          deadline,
+          status: "todo",
+          createdDate: new Date().toLocaleDateString(),
+          timeSpent: 0,
+        };
+
+        tasks.push(task);
+        assignee.tasksAssigned++;
+        addToHistory(
+          `Created new task: "${title}" assigned to ${assignee.name}`
+        );
+
+        // Clear form
+        document.getElementById("taskTitle").value = "";
+        document.getElementById("taskDescription").value = "";
+        document.getElementById("taskAssignee").value = "";
+        document.getElementById("taskDeadline").value = "";
+
+        updateTasksList();
+        updateMembersList();
+        updateDashboard();
+        saveData();
+      }
+
+      function updateTaskStatus(taskId, newStatus) {
+        const task = tasks.find((t) => t.id === taskId);
+        const oldStatus = task.status;
+        task.status = newStatus;
+
+        addToHistory(
+          `Task "${task.title}" status changed from ${oldStatus} to ${newStatus}`
+        );
+        updateTasksList();
+        updateDashboard();
+        saveData();
+      }
+
+      function deleteTask(taskId) {
+        if (confirm("Are you sure you want to delete this task?")) {
+          const task = tasks.find((t) => t.id === taskId);
+          tasks = tasks.filter((t) => t.id !== taskId);
+          addToHistory(`Deleted task: "${task.title}"`);
+          updateTasksList();
+          updateDashboard();
+          saveData();
+        }
+      }
+
+      function openTimeTracker(taskId) {
+        currentTaskId = taskId;
+        const task = tasks.find((t) => t.id === taskId);
+        document.getElementById("trackingTaskTitle").textContent = task.title;
+        document.getElementById("timeModal").style.display = "block";
+        currentTime = 0;
+        updateTimerDisplay();
+      }
+
+      function closeTimeModal() {
+        document.getElementById("timeModal").style.display = "none";
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+        document.getElementById("startBtn").style.display = "inline-block";
+        document.getElementById("pauseBtn").style.display = "none";
+      }
+
+      function startTimer() {
+        timer = setInterval(() => {
+          currentTime++;
+          updateTimerDisplay();
+        }, 1000);
+
+        document.getElementById("startBtn").style.display = "none";
+        document.getElementById("pauseBtn").style.display = "inline-block";
+      }
+
+      function pauseTimer() {
+        clearInterval(timer);
+        timer = null;
+        document.getElementById("startBtn").style.display = "inline-block";
+        document.getElementById("pauseBtn").style.display = "none";
+      }
+
+      function stopTimer() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+
+        if (currentTime > 0 && currentTaskId) {
+          const task = tasks.find((t) => t.id === currentTaskId);
+          task.timeSpent += currentTime;
+          const hours = Math.floor(currentTime / 3600);
+          const minutes = Math.floor((currentTime % 3600) / 60);
+          addToHistory(
+            `Time logged: ${hours}h ${minutes}m for task "${task.title}"`
+          );
+          updateTasksList();
+          updateDashboard();
+          saveData();
+        }
+
+        closeTimeModal();
+      }
+
+      function updateTimerDisplay() {
+        const hours = Math.floor(currentTime / 3600);
+        const minutes = Math.floor((currentTime % 3600) / 60);
+        const seconds = currentTime % 60;
+
+        document.getElementById("timerDisplay").textContent = `${hours
+          .toString()
+          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+      }
+
+      function updateMembersList() {
+        const container = document.getElementById("membersList");
+        container.innerHTML = "";
+
+        members.forEach((member) => {
+          const memberCard = document.createElement("div");
+          memberCard.className = "member-card";
+          memberCard.innerHTML = `
+                    <div class="member-avatar">${member.name
+                      .charAt(0)
+                      .toUpperCase()}</div>
+                    <h3>${member.name}</h3>
+                    <p><strong>Role:</strong> ${member.role}</p>
+                    <p><strong>Email:</strong> ${member.email}</p>
+                    <p><strong>Tasks Assigned:</strong> ${
+                      member.tasksAssigned
+                    }</p>
+                    <p><strong>Joined:</strong> ${member.joinDate}</p>
+                    <button class="btn btn-danger" onclick="removeMember(${
+                      member.id
+                    })">Remove</button>
+                `;
+          container.appendChild(memberCard);
+        });
+      }
+
+      function updateTasksList() {
+        const container = document.getElementById("tasksList");
+        container.innerHTML = "";
+
+        tasks.forEach((task) => {
+          const hours = Math.floor(task.timeSpent / 3600);
+          const minutes = Math.floor((task.timeSpent % 3600) / 60);
+
+          const taskCard = document.createElement("div");
+          taskCard.className = "task-card";
+          taskCard.innerHTML = `
+                    <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 15px;">
+                        <h3 style="flex: 1;">${task.title}</h3>
+                        <span class="task-status status-${
+                          task.status
+                        }">${task.status.replace(
+            "inprogress",
+            "in progress"
+          )}</span>
+                    </div>
+                    <p style="margin-bottom: 15px;">${task.description}</p>
+                    <div style="margin-bottom: 15px;">
+                        <p><strong>Assigned to:</strong> ${
+                          task.assigneeName
+                        }</p>
+                        <p><strong>Priority:</strong> ${task.priority}</p>
+                        <p><strong>Deadline:</strong> ${
+                          task.deadline || "Not set"
+                        }</p>
+                        <p><strong>Time Spent:</strong> ${hours}h ${minutes}m</p>
+                        <p><strong>Created:</strong> ${task.createdDate}</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <select onchange="updateTaskStatus(${
+                          task.id
+                        }, this.value)" class="form-control" style="width: auto;">
+                            <option value="todo" ${
+                              task.status === "todo" ? "selected" : ""
+                            }>To Do</option>
+                            <option value="inprogress" ${
+                              task.status === "inprogress" ? "selected" : ""
+                            }>In Progress</option>
+                            <option value="completed" ${
+                              task.status === "completed" ? "selected" : ""
+                            }>Completed</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="openTimeTracker(${
+                          task.id
+                        })">Track Time</button>
+                        <button class="btn btn-danger" onclick="deleteTask(${
+                          task.id
+                        })">Delete</button>
+                    </div>
+                `;
+          container.appendChild(taskCard);
+        });
+      }
+
+      function updateTaskAssigneeOptions() {
+        const select = document.getElementById("taskAssignee");
+        select.innerHTML = '<option value="">Select team member</option>';
+
+        members.forEach((member) => {
+          const option = document.createElement("option");
+          option.value = member.id;
+          option.textContent = `${member.name} (${member.role})`;
+          select.appendChild(option);
+        });
+      }
+
+      function updateDashboard() {
+        document.getElementById("totalTasks").textContent = tasks.length;
+        document.getElementById("completedTasks").textContent = tasks.filter(
+          (t) => t.status === "completed"
+        ).length;
+        document.getElementById("teamMembers").textContent = members.length;
+
+        const totalSeconds = tasks.reduce(
+          (sum, task) => sum + task.timeSpent,
+          0
+        );
+        const totalHours = Math.floor(totalSeconds / 3600);
+        document.getElementById("totalHours").textContent = totalHours;
+
+        // Update recent activity
+        const recentActivity = document.getElementById("recentActivity");
+        const recentHistory = history.slice(-5).reverse();
+
+        if (recentHistory.length === 0) {
+          recentActivity.innerHTML =
+            '<p style="text-align: center; color: #6c757d;">No recent activity</p>';
+        } else {
+          recentActivity.innerHTML = recentHistory
+            .map(
+              (item) => `
+                    <div class="history-item">
+                        <div class="history-date">${item.date}</div>
+                        <div>${item.action}</div>
+                    </div>
+                `
+            )
+            .join("");
+        }
+      }
+
+      function updateHistoryList() {
+        const container = document.getElementById("historyList");
+
+        if (history.length === 0) {
+          container.innerHTML =
+            '<p style="text-align: center; color: #6c757d;">No activity history yet</p>';
+          return;
+        }
+
+        container.innerHTML = history
+          .slice()
+          .reverse()
+          .map(
+            (item) => `
+                <div class="history-item">
+                    <div class="history-date">${item.date}</div>
+                    <div>${item.action}</div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      function addToHistory(action) {
+        history.push({
+          date: new Date().toLocaleString(),
+          action: action,
+        });
+        updateHistoryList();
+        saveData();
+      }
+
+      function saveData() {
+        const data = {
+          members,
+          tasks,
+          history,
+        };
+        // In a real app, this would save to a backend
+        console.log("Data saved:", data);
+      }
+
+      function loadData() {
+        // In a real app, this would load from a backend
+        // For demo purposes, we'll start with some sample data
+        if (members.length === 0) {
+          members.push(
+            {
+              id: 1,
+              name: "Sarah Johnson",
+              role: "Frontend Developer",
+              email: "sarah@company.com",
+              joinDate: new Date().toLocaleDateString(),
+              tasksAssigned: 0,
+            },
+            {
+              id: 2,
+              name: "Mike Chen",
+              role: "UI/UX Designer",
+              email: "mike@company.com",
+              joinDate: new Date().toLocaleDateString(),
+              tasksAssigned: 0,
+            }
+          );
+        }
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("timeModal");
+        if (event.target === modal) {
+          closeTimeModal();
+        }
+      };
+    </script>
+  </body>
+</html>
