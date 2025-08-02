@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nivas - Portfolio</title>
-    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="icon" type="image/png" href="asset/img/logo.png" />
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -362,25 +362,33 @@
       }
 
       .about::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(37, 99, 235, 0.02) 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
         pointer-events: none;
         animation: subtlePulse 8s ease-in-out infinite;
       }
 
       .about::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         left: 50%;
         width: 300px;
         height: 300px;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 70%);
+        background: radial-gradient(
+          circle,
+          rgba(37, 99, 235, 0.03) 0%,
+          transparent 70%
+        );
         border-radius: 50%;
         transform: translate(-50%, -50%);
         animation: slowRotate 20s linear infinite;
@@ -389,23 +397,34 @@
 
       /* Additional animated background elements */
       .about::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
-          radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
-          radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
-          radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.06) 0%, transparent 60%);
+        background: radial-gradient(
+            circle at 20% 30%,
+            rgba(37, 99, 235, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(37, 99, 235, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 40% 80%,
+            rgba(37, 99, 235, 0.06) 0%,
+            transparent 60%
+          );
         pointer-events: none;
         animation: backgroundPulse 8s ease-in-out infinite;
       }
 
       /* Animated geometric shapes */
       .about .container::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 10%;
         right: 10%;
@@ -419,7 +438,7 @@
       }
 
       .about .container::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 15%;
         left: 5%;
@@ -456,14 +475,18 @@
       }
 
       .section-header h2::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: -10px;
         left: 50%;
         transform: translateX(-50%);
         width: 0;
         height: 3px;
-        background: linear-gradient(90deg, var(--primary-blue), var(--blue-600));
+        background: linear-gradient(
+          90deg,
+          var(--primary-blue),
+          var(--blue-600)
+        );
         border-radius: 2px;
         animation: expandWidth 1s ease 0.5s forwards;
       }
@@ -499,7 +522,7 @@
       }
 
       .about-text h3::before {
-        content: '';
+        content: "";
         position: absolute;
         left: -20px;
         top: 50%;
@@ -551,13 +574,18 @@
       }
 
       .stat-item::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         height: 3px;
-        background: linear-gradient(90deg, var(--primary-blue), var(--blue-600), var(--primary-blue));
+        background: linear-gradient(
+          90deg,
+          var(--primary-blue),
+          var(--blue-600),
+          var(--primary-blue)
+        );
         background-size: 200% 100%;
         animation: gradientShift 3s ease-in-out infinite;
       }
@@ -565,7 +593,11 @@
       .stat-item h4 {
         font-size: 2.5rem;
         font-weight: 800;
-        background: linear-gradient(135deg, var(--primary-blue), var(--blue-600));
+        background: linear-gradient(
+          135deg,
+          var(--primary-blue),
+          var(--blue-600)
+        );
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -615,13 +647,22 @@
 
       .stat-item:hover::after {
         height: 5px;
-        background: linear-gradient(90deg, var(--primary-blue), var(--blue-600), var(--primary-blue));
+        background: linear-gradient(
+          90deg,
+          var(--primary-blue),
+          var(--blue-600),
+          var(--primary-blue)
+        );
         animation: gradientShift 1.5s ease-in-out infinite;
       }
 
       .stat-item:hover h4 {
         transform: scale(1.1);
-        background: linear-gradient(135deg, var(--primary-blue), var(--blue-700));
+        background: linear-gradient(
+          135deg,
+          var(--primary-blue),
+          var(--blue-700)
+        );
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -717,12 +758,14 @@
 
       /* Continuous floating animation for stats */
       .stat-item {
-        animation: floatIn 0.8s ease forwards, gentleFloat 6s ease-in-out infinite;
+        animation: floatIn 0.8s ease forwards,
+          gentleFloat 6s ease-in-out infinite;
         animation-delay: calc(var(--delay, 0) + 1s), calc(var(--delay, 0) + 2s);
       }
 
       @keyframes gentleFloat {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0);
         }
         50% {
@@ -731,7 +774,8 @@
       }
 
       @keyframes subtlePulse {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.3;
         }
         50% {
@@ -750,7 +794,12 @@
 
       /* Interactive text reveal animation */
       .about-text h3 {
-        background: linear-gradient(90deg, var(--gray-900) 0%, var(--primary-blue) 50%, var(--gray-900) 100%);
+        background: linear-gradient(
+          90deg,
+          var(--gray-900) 0%,
+          var(--primary-blue) 50%,
+          var(--gray-900) 100%
+        );
         background-size: 200% 100%;
         background-clip: text;
         -webkit-background-clip: text;
@@ -779,7 +828,7 @@
       }
 
       .about-text p::before {
-        content: '';
+        content: "";
         position: absolute;
         left: -15px;
         top: 0;
@@ -796,7 +845,8 @@
 
       /* Additional animations for enhanced about section */
       @keyframes textPulse {
-        0%, 100% {
+        0%,
+        100% {
           transform: scale(1);
         }
         50% {
@@ -816,10 +866,15 @@
       }
 
       @keyframes bounce {
-        0%, 20%, 53%, 80%, 100% {
+        0%,
+        20%,
+        53%,
+        80%,
+        100% {
           transform: translateY(0);
         }
-        40%, 43% {
+        40%,
+        43% {
           transform: translateY(-10px);
         }
         70% {
@@ -860,7 +915,8 @@
       }
 
       @keyframes backgroundPulse {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.4;
           transform: scale(1);
         }
@@ -871,7 +927,8 @@
       }
 
       @keyframes floatAndRotate {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0px) rotate(0deg);
           opacity: 0.5;
         }
@@ -890,7 +947,8 @@
       }
 
       @keyframes bounceAndRotate {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0px) rotate(45deg) scale(1);
           opacity: 0.6;
         }
@@ -910,7 +968,8 @@
 
       /* Skills Section Animations */
       @keyframes skillsBackgroundPulse {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.3;
           transform: scale(1);
         }
@@ -921,7 +980,8 @@
       }
 
       @keyframes skillCardFloat {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0px);
         }
         50% {
@@ -930,7 +990,8 @@
       }
 
       @keyframes skillTagPulse {
-        0%, 100% {
+        0%,
+        100% {
           transform: scale(1);
           opacity: 1;
         }
@@ -942,7 +1003,8 @@
 
       /* Additional background animations */
       @keyframes skillsBackgroundShift {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.3;
           transform: scale(1);
         }
@@ -953,7 +1015,8 @@
       }
 
       @keyframes skillIconFloat {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0px) rotate(0deg) scale(1);
           opacity: 0.6;
         }
@@ -981,38 +1044,56 @@
 
       /* Animated background for skills section */
       .skills::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
-          radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-          radial-gradient(circle at 75% 75%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-          radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%);
+        background: radial-gradient(
+            circle at 25% 25%,
+            rgba(37, 99, 235, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(37, 99, 235, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(37, 99, 235, 0.03) 0%,
+            transparent 50%
+          );
         animation: skillsBackgroundPulse 10s ease-in-out infinite;
         pointer-events: none;
       }
 
       /* Additional background elements */
       .skills::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
-          radial-gradient(circle at 15% 85%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
-          radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.03) 0%, transparent 40%);
+        background: radial-gradient(
+            circle at 15% 85%,
+            rgba(37, 99, 235, 0.03) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 85% 15%,
+            rgba(37, 99, 235, 0.03) 0%,
+            transparent 40%
+          );
         animation: skillsBackgroundShift 15s ease-in-out infinite;
         pointer-events: none;
       }
 
       /* Skill icons spread throughout the section */
       .skills .container::before {
-        content: '⚛️';
+        content: "⚛️";
         position: absolute;
         top: 15%;
         right: 20%;
@@ -1025,7 +1106,7 @@
       }
 
       .skills .container::after {
-        content: '⚡';
+        content: "⚡";
         position: absolute;
         bottom: 20%;
         left: 15%;
@@ -1039,7 +1120,7 @@
 
       /* Additional skill icons */
       .skills .skills-grid::before {
-        content: '🔧';
+        content: "🔧";
         position: absolute;
         top: 40%;
         left: 8%;
@@ -1052,7 +1133,7 @@
       }
 
       .skills .skills-grid::after {
-        content: '🎨';
+        content: "🎨";
         position: absolute;
         top: 25%;
         right: 12%;
@@ -1066,7 +1147,7 @@
 
       /* More skill icons using pseudo-elements on different containers */
       .skills .section-header::before {
-        content: '💻';
+        content: "💻";
         position: absolute;
         top: -20px;
         right: 10%;
@@ -1079,7 +1160,7 @@
       }
 
       .skills .section-header::after {
-        content: '🚀';
+        content: "🚀";
         position: absolute;
         bottom: -30px;
         left: 15%;
@@ -1114,13 +1195,18 @@
       }
 
       .skill-card::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(37, 99, 235, 0.1),
+          transparent
+        );
         transition: left 0.6s ease;
       }
 
@@ -1186,13 +1272,18 @@
       }
 
       .skill-tag::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
         transition: left 0.5s ease;
       }
 
@@ -1361,13 +1452,17 @@
       }
 
       .icon-float::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         left: 50%;
         width: 60px;
         height: 60px;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+        background: radial-gradient(
+          circle,
+          rgba(37, 99, 235, 0.1) 0%,
+          transparent 70%
+        );
         border-radius: 50%;
         transform: translate(-50%, -50%);
         animation: iconPulse 4s ease-in-out infinite;
@@ -1382,7 +1477,11 @@
       }
 
       .icon-float:hover::before {
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+        background: radial-gradient(
+          circle,
+          rgba(37, 99, 235, 0.2) 0%,
+          transparent 70%
+        );
         transform: translate(-50%, -50%) scale(1.5);
       }
 
@@ -1403,7 +1502,8 @@
       }
 
       @keyframes iconPulse {
-        0%, 100% {
+        0%,
+        100% {
           opacity: 0.3;
           transform: translate(-50%, -50%) scale(1);
         }
@@ -2327,12 +2427,12 @@
               <h4>2+</h4>
               <p>Projects Completed</p>
             </div>
-            
+
             <div class="stat-item">
               <h4>10+</h4>
               <p>Technologies & Tools</p>
             </div>
-            
+
             <div class="stat-item">
               <h4>4</h4>
               <p>Certification</p>
@@ -2382,13 +2482,13 @@
           <p>Technologies and Tools I've Trained So Far.</p>
         </div>
         <div class="skills-grid">
-          <div class="skill-card" style="--card-delay: 0;">
+          <div class="skill-card" style="--card-delay: 0">
             <h3>
               <i class="fas fa-code" style="color: #e34f26"></i> Programming
               Languages
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag html-tag" style="--tag-delay: 0;">
+              <span class="skill-tag html-tag" style="--tag-delay: 0">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
                   alt="HTML"
@@ -2397,7 +2497,7 @@
                 />
                 HTML
               </span>
-              <span class="skill-tag css-tag" style="--tag-delay: 1;">
+              <span class="skill-tag css-tag" style="--tag-delay: 1">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
                   alt="CSS"
@@ -2406,7 +2506,7 @@
                 />
                 CSS
               </span>
-              <span class="skill-tag js-tag" style="--tag-delay: 2;">
+              <span class="skill-tag js-tag" style="--tag-delay: 2">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
                   alt="JavaScript"
@@ -2417,13 +2517,13 @@
               </span>
             </div>
           </div>
-          <div class="skill-card" style="--card-delay: 1;">
+          <div class="skill-card" style="--card-delay: 1">
             <h3>
               <i class="fas fa-layer-group" style="color: #61dafb"></i>
               Frameworks & Libraries
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag tailwind-tag" style="--tag-delay: 0;">
+              <span class="skill-tag tailwind-tag" style="--tag-delay: 0">
                 <svg
                   viewBox="0 0 24 24"
                   fill="#38BDF8"
@@ -2436,7 +2536,7 @@
                 TailwindCSS
               </span>
 
-              <span class="skill-tag react-tag" style="--tag-delay: 1;">
+              <span class="skill-tag react-tag" style="--tag-delay: 1">
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
                   alt="React"
@@ -3493,34 +3593,34 @@
         }, 100);
       });
 
-
-
       // Enhanced about section animations
       const aboutSection = document.querySelector(".about");
       if (aboutSection) {
-        const aboutObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-              // Add pulse effect to section header
-              const header = entry.target.querySelector(".section-header h2");
-              if (header) {
-                header.style.animation = "textPulse 2s ease-in-out";
+        const aboutObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Add pulse effect to section header
+                const header = entry.target.querySelector(".section-header h2");
+                if (header) {
+                  header.style.animation = "textPulse 2s ease-in-out";
+                }
+
+                // Add staggered animation to about text paragraphs
+                const paragraphs =
+                  entry.target.querySelectorAll(".about-text p");
+                paragraphs.forEach((p, index) => {
+                  setTimeout(() => {
+                    p.style.animation = "slideInFromLeft 0.8s ease forwards";
+                  }, index * 300);
+                });
+
+                aboutObserver.unobserve(entry.target);
               }
-
-              // Add staggered animation to about text paragraphs
-              const paragraphs = entry.target.querySelectorAll(".about-text p");
-              paragraphs.forEach((p, index) => {
-              setTimeout(() => {
-                  p.style.animation = "slideInFromLeft 0.8s ease forwards";
-                }, index * 300);
-              });
-
-
-
-              aboutObserver.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.3 });
+            });
+          },
+          { threshold: 0.3 }
+        );
 
         aboutObserver.observe(aboutSection);
       }
@@ -3539,10 +3639,10 @@
           pointer-events: none;
           animation: floatUp 4s linear infinite;
         `;
-        
+
         particle.style.left = Math.random() * 100 + "%";
         particle.style.animationDelay = Math.random() * 4 + "s";
-        
+
         return particle;
       }
 
